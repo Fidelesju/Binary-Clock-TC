@@ -36,10 +36,11 @@ public class BinaryClockTC extends MainWindow {
         add(imageControl,CENTER,CENTER);
 
         CreateButton();
-         Thread t = new Thread(()->{
+       
+        Thread thread = new Thread(()->{
             Score();   
           });
-          t.start(); 
+          thread.start(); 
           
     }
     //Criando 
@@ -105,11 +106,14 @@ public class BinaryClockTC extends MainWindow {
         btnSeconds6.setBackColor(Color.DARK);  
     }
     
+    public void SetHours(){
+
+    }
+    
     public void VerificationSeconds(){
         //Segundos casa 6
         if (positionsSeconds[0] == true) {
             btnSeconds6.setBackColor(Color.RED);
-            System.out.println("cor vermelha");
         } else{
             btnSeconds6.setBackColor(Color.DARK);
         }
@@ -220,6 +224,7 @@ public class BinaryClockTC extends MainWindow {
     }
      
     public void Score(){
+
         while (true) {   
             //Contagem dos segundos
             try {

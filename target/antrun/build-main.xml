@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="maven-antrun-" default="main"  >
+<target name="main">
+  <exec failonerror="true" executable="C:\Users\Julia Fideles\AppData\Local\TotalCross\zulu_jdk_11\bin\java">
+    <arg value="-Dretrolambda.quiet=false"/>
+    <arg value="-Dretrolambda.bytecodeVersion=51"/>
+    <arg value="-Dretrolambda.javacHacks=false"/>
+    <arg value="-Dretrolambda.inputDir=C:\Users\Julia Fideles\OneDrive\Documentos\Git\Binary-Clock-TC\target\classes"/>
+    <arg value="-Dretrolambda.outputDir=C:\Users\Julia Fideles\OneDrive\Documentos\Git\Binary-Clock-TC\target\classes"/>
+    <arg value="-Dretrolambda.classpathFile=C:\Users\JULIAF~1\AppData\Local\Temp\retrolambda5261625685876845800classpath"/>
+    <arg value="-Dretrolambda.defaultMethods=false"/>
+    <arg value="-javaagent:C:\Users\Julia Fideles\OneDrive\Documentos\Git\Binary-Clock-TC\target/retrolambda/retrolambda.jar"/>
+    <arg value="-jar"/>
+    <arg value="C:\Users\Julia Fideles\OneDrive\Documentos\Git\Binary-Clock-TC\target/retrolambda/retrolambda.jar"/>
+  </exec>
+</target>
+</project>
