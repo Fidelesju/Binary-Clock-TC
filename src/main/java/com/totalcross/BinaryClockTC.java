@@ -4,6 +4,9 @@ import totalcross.ui.gfx.Color;
 import totalcross.ui.Button;
 import totalcross.ui.ImageControl;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import com.totalcross.util.Images;
 
 import totalcross.sys.Settings;
@@ -12,12 +15,14 @@ public class BinaryClockTC extends MainWindow {
 
     Button btnMinutes1,btnMinutes2,btnMinutes3,btnMinutes4,btnMinutes5,btnMinutes6,btnHours1,btnHours2,btnHours3,
     btnHours4,btnHours5,btnSeconds1,btnSeconds2,btnSeconds3,btnSeconds4,btnSeconds5,btnSeconds6;
- 
+
     int seconds = 0, minutes = 1, hours = 1;
+    int setSeconds,setMinutes,setHours;
     boolean[] positionsSeconds = new boolean[6];
     boolean[] positionsMinutes = new boolean[6];
     boolean[] positionsHours = new boolean[5];
-
+    String arrayHours[] = new String[3];
+    String getHours,getMinutes,getSeconds;
     private ImageControl imageControl;
     public BinaryClockTC() {
         setUIStyle(Settings.MATERIAL_UI);
@@ -35,12 +40,14 @@ public class BinaryClockTC extends MainWindow {
 
         add(imageControl,CENTER,CENTER);
 
+        SetHours();
         CreateButton();
-       
         Thread thread = new Thread(()->{
             Score();   
           });
           thread.start(); 
+ 
+          
           
     }
     //Criando 
@@ -107,7 +114,22 @@ public class BinaryClockTC extends MainWindow {
     }
     
     public void SetHours(){
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss"); 
+          getHours = sdf.format(new Date());
+          for(int i = 0; i<3;i++){
+            arrayHours = getHours.split(":");
+            System.out.println(arrayHours[i]);
+          }
+          getHours = arrayHours[0];
+          getMinutes = arrayHours[1];
+          getSeconds = arrayHours[2];
+          setHours = Integer.parseInt(getHours);
+          setMinutes = Integer.parseInt(getMinutes);
+          setSeconds = Integer.parseInt(getSeconds);
 
+          seconds = setSeconds;
+          minutes = setMinutes;
+          hours = setHours;
     }
     
     public void VerificationSeconds(){
