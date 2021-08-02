@@ -15,7 +15,7 @@ public class BinaryClockTC extends MainWindow {
     ledHours4,ledHours5;
  
 
-    int seconds = 0, minutes = 1, hours = 1;
+    int seconds = 0, minutes = 1, hours = 1,verification = 0;
     int setSeconds,setMinutes,setHours;
     boolean[] positionsSeconds = new boolean[6];
     boolean[] positionsMinutes = new boolean[6];
@@ -111,8 +111,9 @@ public class BinaryClockTC extends MainWindow {
           setMinutes = Integer.parseInt(getMinutes);
           setSeconds = Integer.parseInt(getSeconds);
 
-          seconds = setSeconds;
-          minutes = setMinutes;
+          
+          seconds = setSeconds + 1;
+          minutes = setMinutes + 1;
           hours = setHours;  
     }
     
@@ -240,6 +241,31 @@ public class BinaryClockTC extends MainWindow {
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
+            }
+            if(verification == 0){
+                for (int i = 0; i < 6; i++) {
+                    positionsSeconds[i] = (((seconds >> i)&0x1)==1);
+                    
+                }
+                for (int i = 5; i >=0; i--) {   
+                   VerificationSeconds();
+                    System.out.print(positionsSeconds[i]?1:0);
+                }
+                for (int i = 0; i < 6; i++) {
+                    positionsMinutes[i] = (((minutes >> i)&0x1)==1);
+                }
+                for (int i = 5; i >=0; i--) {
+                    VerificationMinutes();
+                    System.out.print(positionsMinutes[i]?1:0);
+                }
+                for (int i = 0; i < 5; i++) {
+                    positionsHours[i] = (((hours >> i)&0x1)==1);
+                    }
+                   for (int i = 0; i < 4; i++) {
+                       VerificationHours();
+                       System.out.print(positionsHours[i]?1:0);
+                }
+            verification++;
             }
             System.out.println("Segundos: " + seconds);
             for (int i = 0; i < 6; i++) {

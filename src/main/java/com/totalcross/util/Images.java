@@ -18,8 +18,8 @@ public class Images {
     }
     public static void loadLed() {
         try {
-            ledRed = new Image("src/Images/LedVermelho.jpg");    
-            ledDark = new Image("src/Images/LedDark.jpg"); 
+            ledRed = new Image("src/images/LedVermelho.jpg");    
+            ledDark = new Image("src/images/LedDark.jpg"); 
 
         } catch (Exception e) {
             MessageBox.showException(e, true);
