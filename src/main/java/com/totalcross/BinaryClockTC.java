@@ -1,24 +1,19 @@
 package com.totalcross;
 import totalcross.ui.MainWindow;
-import totalcross.ui.dialog.MessageBox;
-import totalcross.ui.icon.Icon;
+import totalcross.util.UnitsConverter;
 import totalcross.ui.ImageControl;
-import java.util.Date;
 import totalcross.sys.*;
-import javax.swing.JOptionPane;
-
 import com.totalcross.util.Images;
 
-import totalcross.db.sqlite.SQLiteConfig.DateFormat;
+import totalcross.ui.Container;
 import totalcross.sys.Settings;
 public class BinaryClockTC extends MainWindow {
-
 
     private ImageControl imageControl, ledSeconds1,ledSeconds2,ledSeconds3,ledSeconds4,ledSeconds5,
     ledSeconds6,ledMinutes1,ledMinutes2,ledMinutes3,ledMinutes4,ledMinutes5,ledMinutes6,ledHours1,ledHours2,ledHours3,
     ledHours4,ledHours5;
  
-
+    static final int SIZE = 8;
     int seconds = 0, minutes = 1, hours = 1,verification = 0;
     int setSeconds,setMinutes,setHours;
     boolean[] positionsSeconds = new boolean[6];
@@ -40,9 +35,9 @@ public class BinaryClockTC extends MainWindow {
         imageControl = new ImageControl(Images.background);
 
         imageControl.scaleToFit = true;
-        imageControl.centerImage = true;
+        imageControl.strechImage = true;
 
-        add(imageControl,CENTER,CENTER); 
+        add(imageControl,LEFT,TOP,PARENTSIZE,PARENTSIZE); 
 
         SetHours();
         CreateLeds();
@@ -76,28 +71,33 @@ public class BinaryClockTC extends MainWindow {
         ledSeconds5 = new ImageControl(Images.ledDark);
         ledSeconds6 = new ImageControl(Images.ledDark);
 
-
         //Criando botões
-        add(ledHours1,LEFT + 140,TOP + 200);
-        add(ledHours2,LEFT + 190,TOP + 200);
-        add(ledHours3,LEFT + 240,TOP + 200);
-        add(ledHours4,LEFT + 290,TOP + 200);
-        add(ledHours5,LEFT + 340,TOP + 200);
+        Container container = new Container();
+        add(container,CENTER,CENTER);
 
-        add(ledMinutes1,LEFT + 140,TOP + 250);
-        add(ledMinutes2,LEFT + 190,TOP + 250);
-        add(ledMinutes3,LEFT + 240,TOP + 250);
-        add(ledMinutes4,LEFT + 290,TOP + 250);
-        add(ledMinutes5,LEFT + 340,TOP + 250);
-        add(ledMinutes6,LEFT + 390,TOP + 250);
+        container.add(ledHours1,LEFT,TOP);
+        container.add(ledHours2,AFTER + UnitsConverter.toPixels(DP + SIZE),SAME);
+        container.add(ledHours3,AFTER + UnitsConverter.toPixels(DP + SIZE),SAME);
+        container.add(ledHours4,AFTER + UnitsConverter.toPixels(DP + SIZE),SAME);
+        container.add(ledHours5,AFTER + UnitsConverter.toPixels(DP + SIZE),SAME);
+        
+        container.add(ledMinutes1,LEFT,AFTER + 10 );
+        container.add(ledMinutes2,AFTER + UnitsConverter.toPixels(DP + SIZE),SAME);
+        container.add(ledMinutes3,AFTER + UnitsConverter.toPixels(DP + SIZE),SAME);
+        container.add(ledMinutes4,AFTER + UnitsConverter.toPixels(DP + SIZE),SAME);
+        container.add(ledMinutes5,AFTER + UnitsConverter.toPixels(DP + SIZE),SAME);
+        container.add(ledMinutes6,AFTER + UnitsConverter.toPixels(DP + SIZE),SAME);
 
-        add(ledSeconds1,LEFT + 140,TOP + 300);
-        add(ledSeconds2,LEFT + 190,TOP + 300);
-        add(ledSeconds3,LEFT + 240,TOP + 300);
-        add(ledSeconds4,LEFT + 290,TOP + 300);
-        add(ledSeconds5,LEFT + 340,TOP + 300);
-        add(ledSeconds6,LEFT + 390,TOP + 300);
+        container.add(ledSeconds1,LEFT,AFTER + 10);
+        container.add(ledSeconds2,AFTER + UnitsConverter.toPixels(DP + SIZE),SAME);
+        container.add(ledSeconds3,AFTER + UnitsConverter.toPixels(DP + SIZE),SAME);
+        container.add(ledSeconds4,AFTER + UnitsConverter.toPixels(DP + SIZE),SAME);
+        container.add(ledSeconds5,AFTER + UnitsConverter.toPixels(DP + SIZE),SAME);
+        container.add(ledSeconds6,AFTER + UnitsConverter.toPixels(DP + SIZE),SAME);
 
+        container.resize();
+        container.setRect(CENTER,CENTER,KEEP,KEEP);
+        container.transparentBackground = true;
     }
     
     //Pegando a hora do sistema
@@ -109,7 +109,6 @@ public class BinaryClockTC extends MainWindow {
 
           for(int i = 0; i<3;i++){
             arrayHours = getHours.split(":");
-            Vm.debug(arrayHours[i]);
           }
           getHours = arrayHours[0];
           getMinutes = arrayHours[1];
