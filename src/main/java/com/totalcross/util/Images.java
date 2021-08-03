@@ -11,15 +11,15 @@ public class Images {
     }
     public static void loadImage() {
         try {
-            background = new Image("src/images/Binary-Clock.png");   
+            background = new Image("src/main/resources/images/Binary-Clock.png");   
         } catch (Exception e) {
             MessageBox.showException(e, true);
         }
     }
     public static void loadLed() {
         try {
-            ledRed = new Image("src/images/LedVermelho.jpg");    
-            ledDark = new Image("src/images/LedDark.jpg"); 
+            ledRed = new Image("src/main/resources/images/LedVermelho.jpg");    
+            ledDark = new Image("src/main/resources/images/LedDark.jpg"); 
 
         } catch (Exception e) {
             MessageBox.showException(e, true);
