@@ -1,11 +1,15 @@
 package com.totalcross;
 import totalcross.ui.MainWindow;
+import totalcross.ui.dialog.MessageBox;
+import totalcross.ui.icon.Icon;
 import totalcross.ui.ImageControl;
-import java.text.SimpleDateFormat;
 import java.util.Date;
+import totalcross.sys.*;
+import javax.swing.JOptionPane;
 
 import com.totalcross.util.Images;
 
+import totalcross.db.sqlite.SQLiteConfig.DateFormat;
 import totalcross.sys.Settings;
 public class BinaryClockTC extends MainWindow {
 
@@ -21,7 +25,7 @@ public class BinaryClockTC extends MainWindow {
     boolean[] positionsMinutes = new boolean[6];
     boolean[] positionsHours = new boolean[5];
     String arrayHours[] = new String[3];
-    String getHours,getMinutes,getSeconds;
+    String getHours,getMinutes,getSeconds,format;
 
   
     public BinaryClockTC() {
@@ -47,7 +51,7 @@ public class BinaryClockTC extends MainWindow {
             Score();   
           });
           thread.start(); 
-          
+
     }
 
     //Criando LED's
@@ -98,11 +102,14 @@ public class BinaryClockTC extends MainWindow {
     
     //Pegando a hora do sistema
     public void SetHours(){
-        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss"); 
-          getHours = sdf.format(new Date());
+
+       Time f24h = new Time();
+        //SimpleDateFormat f24h = new SimpleDateFormat("hh:mm:ss"); 
+          getHours = f24h.toString();
+
           for(int i = 0; i<3;i++){
             arrayHours = getHours.split(":");
-            System.out.println(arrayHours[i]);
+            Vm.debug(arrayHours[i]);
           }
           getHours = arrayHours[0];
           getMinutes = arrayHours[1];
@@ -249,63 +256,59 @@ public class BinaryClockTC extends MainWindow {
                 }
                 for (int i = 5; i >=0; i--) {   
                    VerificationSeconds();
-                    System.out.print(positionsSeconds[i]?1:0);
                 }
                 for (int i = 0; i < 6; i++) {
                     positionsMinutes[i] = (((minutes >> i)&0x1)==1);
                 }
                 for (int i = 5; i >=0; i--) {
                     VerificationMinutes();
-                    System.out.print(positionsMinutes[i]?1:0);
                 }
                 for (int i = 0; i < 5; i++) {
                     positionsHours[i] = (((hours >> i)&0x1)==1);
                     }
                    for (int i = 0; i < 4; i++) {
                        VerificationHours();
-                       System.out.print(positionsHours[i]?1:0);
+                      
                 }
             verification++;
             }
-            System.out.println("Segundos: " + seconds);
+            Vm.debug("Segundos: " + seconds);
             for (int i = 0; i < 6; i++) {
                 positionsSeconds[i] = (((seconds >> i)&0x1)==1);
                 
             }
             for (int i = 5; i >=0; i--) {   
                VerificationSeconds();
-                System.out.print(positionsSeconds[i]?1:0);
             }
-            System.out.println();
             seconds++;
             seconds = seconds!=60?seconds:0;
             
             //Contagem dos minutos
-            if(seconds == 59){
+            if(seconds == 60){
                
-                System.out.println("Minutos: " + minutes);
+                Vm.debug("Minutos: " + minutes);
                 for (int i = 0; i < 6; i++) {
                     positionsMinutes[i] = (((minutes >> i)&0x1)==1);
                 }
                 for (int i = 5; i >=0; i--) {
                     VerificationMinutes();
-                    System.out.print(positionsMinutes[i]?1:0);
+                   
                 }
-                System.out.println();
+              
                 minutes++;
                 minutes = minutes!=60?minutes:0;
                 //Contando horas
                     if(minutes == 59){
                         minutes = 1;
-                        System.out.println("Horas: " + hours);
+                        Vm.debug("Horas: " + hours);
                    for (int i = 0; i < 5; i++) {
                     positionsHours[i] = (((hours >> i)&0x1)==1);
                     }
                    for (int i = 0; i < 4; i++) {
                        VerificationHours();
-                       System.out.print(positionsHours[i]?1:0);
+                   
                    }
-                   System.out.println();
+                
                    hours++;
                    hours = hours!=24?hours:0;
                     }
