@@ -140,6 +140,9 @@ public class BinaryClockTC extends MainWindow {
           setMinutes = Integer.parseInt(getMinutes) + 1;
           setSeconds = Integer.parseInt(getSeconds) + 1;
 
+          System.out.println(setHours);
+          System.out.println(setMinutes);
+          System.out.println(setSeconds);
     }
     
     //Verificando os segundos
@@ -235,7 +238,6 @@ public class BinaryClockTC extends MainWindow {
                     }
                    for (int i = 0; i < 4; i++) {
                        VerificationHours();
-                   
                    }
                 
                    setHours++;
